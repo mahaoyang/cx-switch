@@ -2,7 +2,7 @@
 
 A beautiful web UI for managing and switching Codex API provider configurations.
 
-![CX Switch Screenshot](docs/screenshot.png)
+![CX Switch Screenshot](https://raw.githubusercontent.com/mahaoyang/cx-switch/main/docs/screenshot.png)
 
 ## Features
 
