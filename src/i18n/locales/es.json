@@ -1,0 +1,114 @@
+{
+  "app": {
+    "title": "Cambiador de Proveedores Codex",
+    "subtitle": "Administra y cambia tus configuraciones de proveedores de API"
+  },
+  "sidebar": {
+    "title": "Lista de Proveedores",
+    "addNew": "Agregar Nuevo",
+    "empty": "Aún no hay proveedores, haz clic en el botón de arriba para agregar uno",
+    "current": "Actual",
+    "selectPrompt": "Por favor selecciona un proveedor de la izquierda"
+  },
+  "provider": {
+    "name": "Proveedor",
+    "model": "Modelo",
+    "notSet": "No configurado",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar este proveedor?"
+  },
+  "detail": {
+    "switchTo": "Cambiar a este proveedor",
+    "tabs": {
+      "preview": "Vista Previa de Configuración",
+      "export": "Exportar Configuración",
+      "projects": "Gestión de Proyectos"
+    }
+  },
+  "export": {
+    "title": "Opciones de Exportación",
+    "toDirectory": "Exportar al directorio ~/.codex",
+    "copyAuth": "Copiar auth.json",
+    "copyConfig": "Copiar config.toml"
+  },
+  "projects": {
+    "title": "Niveles de Confianza del Proyecto",
+    "description": "Estas configuraciones se aplican a todos los proveedores",
+    "trustLevel": "Nivel de Confianza",
+    "trusted": "trusted - Confiar en este proyecto",
+    "untrusted": "untrusted - No confiar",
+    "addProject": "Agregar Proyecto",
+    "deleteProject": "Eliminar proyecto",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar este proyecto?",
+    "pathPlaceholder": "Ruta absoluta del proyecto (ej., /home/user/workspace/project)"
+  },
+  "modal": {
+    "addProvider": "Agregar Proveedor",
+    "editProvider": "Editar Proveedor",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "configName": "Nombre de Configuración",
+    "configNameRequired": "El nombre de configuración es requerido",
+    "configNamePlaceholder": "ej., OpenAI GPT-4, Azure OpenAI, OpenRouter Claude"
+  },
+  "providerEditor": {
+    "customProvider": "Proveedor Personalizado",
+    "officialOpenAI": "OpenAI Oficial",
+    "providerType": {
+      "official": "OpenAI Oficial Predeterminado",
+      "custom": "Proveedor Personalizado (ej., Azure, OpenRouter, etc.)"
+    },
+    "basicConfig": "Configuración Básica",
+    "model": "Modelo (model)",
+    "modelPlaceholder": "ej., gpt-5-codex, claude-3-opus",
+    "reasoningEffort": "Esfuerzo de Razonamiento (model_reasoning_effort)",
+    "reasoningEffortOptions": {
+      "notSet": "No configurado",
+      "low": "bajo",
+      "medium": "medio",
+      "high": "alto"
+    },
+    "disableResponseStorage": "Deshabilitar almacenamiento de respuestas (disable_response_storage)",
+    "providerConfig": "Configuración del Proveedor",
+    "providerKey": "Nombre del Proveedor (provider_key)",
+    "providerKeyRequired": "El nombre del proveedor es requerido",
+    "providerKeyPlaceholder": "ej., azure, openrouter, custom",
+    "providerKeyHint": "Identificador para [model_providers.xxx] en el archivo de configuración, se recomienda minúsculas",
+    "baseUrl": "URL Base de API (base_url)",
+    "baseUrlRequired": "La URL base de API es requerida",
+    "baseUrlPlaceholder": "https://api.example.com/v1",
+    "wireApi": "Wire API (wire_api)",
+    "wireApiPlaceholder": "responses",
+    "wireApiHint": "Tipo de formato de respuesta de API, generalmente responses",
+    "requiresOpenAIAuth": "Requiere autenticación en formato OpenAI (requires_openai_auth)",
+    "openaiConfig": "Configuración de OpenAI",
+    "openaiBaseUrl": "URL Base (base_url)",
+    "openaiBaseUrlPlaceholder": "Dejar vacío para usar el predeterminado: https://api.openai.com/v1",
+    "openaiBaseUrlHint": "Solo completar cuando necesites anular la dirección predeterminada",
+    "apiAuth": "Autenticación de API (auth.json)",
+    "openaiApiKey": "OPENAI_API_KEY",
+    "customFields": "Campos Personalizados",
+    "addCustomField": "Agregar campo personalizado",
+    "addOtherAuthField": "Agregar otro campo de autenticación",
+    "fieldName": "Nombre del campo",
+    "fieldValue": "Valor del campo",
+    "add": "Agregar",
+    "advancedConfig": "Avanzado",
+    "configPreview": "config.toml (Vista Previa)"
+  },
+  "notification": {
+    "providerDeleted": "Proveedor eliminado",
+    "providerUpdated": "Proveedor actualizado",
+    "providerAdded": "Proveedor agregado",
+    "providerSwitched": "Proveedor cambiado",
+    "projectAdded": "Proyecto agregado",
+    "projectDeleted": "Proyecto eliminado",
+    "exportedToDirectory": "Configuración exportada al directorio",
+    "authCopied": "auth.json copiado al portapapeles",
+    "configCopied": "config.toml copiado al portapapeles",
+    "exportFailed": "Exportación fallida",
+    "copyFailed": "Copia fallida",
+    "saveFailed": "Guardado fallido"
+  }
+}

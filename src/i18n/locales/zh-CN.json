@@ -1,0 +1,114 @@
+{
+  "app": {
+    "title": "Codex 提供商切换器",
+    "subtitle": "管理和切换你的 API 提供商配置"
+  },
+  "sidebar": {
+    "title": "提供商列表",
+    "addNew": "新增",
+    "empty": "还没有提供商，点击上方按钮添加",
+    "current": "当前",
+    "selectPrompt": "请从左侧选择一个提供商"
+  },
+  "provider": {
+    "name": "提供商",
+    "model": "模型",
+    "notSet": "未设置",
+    "edit": "编辑",
+    "delete": "删除",
+    "confirmDelete": "确定要删除这个提供商吗？"
+  },
+  "detail": {
+    "switchTo": "切换到此提供商",
+    "tabs": {
+      "preview": "配置预览",
+      "export": "导出配置",
+      "projects": "项目管理"
+    }
+  },
+  "export": {
+    "title": "导出选项",
+    "toDirectory": "导出到 ~/.codex 目录",
+    "copyAuth": "复制 auth.json",
+    "copyConfig": "复制 config.toml"
+  },
+  "projects": {
+    "title": "项目信任级别",
+    "description": "这些设置对所有提供商生效",
+    "trustLevel": "信任级别",
+    "trusted": "trusted - 信任该项目",
+    "untrusted": "untrusted - 不信任",
+    "addProject": "添加项目",
+    "deleteProject": "删除项目",
+    "confirmDelete": "确定要删除这个项目吗？",
+    "pathPlaceholder": "项目绝对路径（如: /home/user/workspace/project）"
+  },
+  "modal": {
+    "addProvider": "新增提供商",
+    "editProvider": "编辑提供商",
+    "cancel": "取消",
+    "save": "保存",
+    "configName": "配置名称",
+    "configNameRequired": "请输入配置名称",
+    "configNamePlaceholder": "例如：OpenAI GPT-4、Azure OpenAI、OpenRouter Claude"
+  },
+  "providerEditor": {
+    "customProvider": "自定义提供商",
+    "officialOpenAI": "OpenAI 官方",
+    "providerType": {
+      "official": "默认 OpenAI 官方",
+      "custom": "自定义提供商（如 Azure、OpenRouter 等）"
+    },
+    "basicConfig": "基础配置",
+    "model": "模型 (model)",
+    "modelPlaceholder": "例如: gpt-5-codex, claude-3-opus",
+    "reasoningEffort": "推理强度 (model_reasoning_effort)",
+    "reasoningEffortOptions": {
+      "notSet": "不设置",
+      "low": "low",
+      "medium": "medium",
+      "high": "high"
+    },
+    "disableResponseStorage": "禁用响应存储 (disable_response_storage)",
+    "providerConfig": "提供商配置",
+    "providerKey": "提供商名称 (provider_key)",
+    "providerKeyRequired": "请输入提供商标识（provider_key）",
+    "providerKeyPlaceholder": "例如: azure, openrouter, custom",
+    "providerKeyHint": "标识符，用于配置文件中的 [model_providers.xxx]，建议用小写英文",
+    "baseUrl": "API Base URL (base_url)",
+    "baseUrlRequired": "请输入 API Base URL",
+    "baseUrlPlaceholder": "https://api.example.com/v1",
+    "wireApi": "Wire API (wire_api)",
+    "wireApiPlaceholder": "responses",
+    "wireApiHint": "API 响应格式类型，通常为 responses",
+    "requiresOpenAIAuth": "需要 OpenAI 格式认证 (requires_openai_auth)",
+    "openaiConfig": "OpenAI 配置",
+    "openaiBaseUrl": "Base URL (base_url)",
+    "openaiBaseUrlPlaceholder": "留空使用默认: https://api.openai.com/v1",
+    "openaiBaseUrlHint": "仅在需要覆盖默认地址时填写",
+    "apiAuth": "API 认证 (auth.json)",
+    "openaiApiKey": "OPENAI_API_KEY",
+    "customFields": "自定义字段",
+    "addCustomField": "添加自定义字段",
+    "addOtherAuthField": "添加其他密钥字段",
+    "fieldName": "字段名",
+    "fieldValue": "字段值",
+    "add": "添加",
+    "advancedConfig": "高级",
+    "configPreview": "config.toml (预览)"
+  },
+  "notification": {
+    "providerDeleted": "提供商已删除",
+    "providerUpdated": "提供商已更新",
+    "providerAdded": "提供商已添加",
+    "providerSwitched": "提供商已切换",
+    "projectAdded": "项目已添加",
+    "projectDeleted": "项目已删除",
+    "exportedToDirectory": "配置已导出到目录",
+    "authCopied": "auth.json 已复制到剪贴板",
+    "configCopied": "config.toml 已复制到剪贴板",
+    "exportFailed": "导出失败",
+    "copyFailed": "复制失败",
+    "saveFailed": "保存失败"
+  }
+}

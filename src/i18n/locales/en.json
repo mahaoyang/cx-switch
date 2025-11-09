@@ -1,0 +1,114 @@
+{
+  "app": {
+    "title": "Codex Provider Switcher",
+    "subtitle": "Manage and switch your API provider configurations"
+  },
+  "sidebar": {
+    "title": "Provider List",
+    "addNew": "Add New",
+    "empty": "No providers yet, click the button above to add one",
+    "current": "Current",
+    "selectPrompt": "Please select a provider from the left side"
+  },
+  "provider": {
+    "name": "Provider",
+    "model": "Model",
+    "notSet": "Not set",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this provider?"
+  },
+  "detail": {
+    "switchTo": "Switch to this provider",
+    "tabs": {
+      "preview": "Configuration Preview",
+      "export": "Export Configuration",
+      "projects": "Project Management"
+    }
+  },
+  "export": {
+    "title": "Export Options",
+    "toDirectory": "Export to ~/.codex directory",
+    "copyAuth": "Copy auth.json",
+    "copyConfig": "Copy config.toml"
+  },
+  "projects": {
+    "title": "Project Trust Levels",
+    "description": "These settings apply to all providers",
+    "trustLevel": "Trust Level",
+    "trusted": "trusted - Trust this project",
+    "untrusted": "untrusted - Do not trust",
+    "addProject": "Add Project",
+    "deleteProject": "Delete project",
+    "confirmDelete": "Are you sure you want to delete this project?",
+    "pathPlaceholder": "Absolute project path (e.g., /home/user/workspace/project)"
+  },
+  "modal": {
+    "addProvider": "Add Provider",
+    "editProvider": "Edit Provider",
+    "cancel": "Cancel",
+    "save": "Save",
+    "configName": "Configuration Name",
+    "configNameRequired": "Configuration name is required",
+    "configNamePlaceholder": "e.g., OpenAI GPT-4, Azure OpenAI, OpenRouter Claude"
+  },
+  "providerEditor": {
+    "customProvider": "Custom Provider",
+    "officialOpenAI": "OpenAI Official",
+    "providerType": {
+      "official": "Default OpenAI Official",
+      "custom": "Custom Provider (e.g., Azure, OpenRouter, etc.)"
+    },
+    "basicConfig": "Basic Configuration",
+    "model": "Model (model)",
+    "modelPlaceholder": "e.g., gpt-5-codex, claude-3-opus",
+    "reasoningEffort": "Reasoning Effort (model_reasoning_effort)",
+    "reasoningEffortOptions": {
+      "notSet": "Not set",
+      "low": "low",
+      "medium": "medium",
+      "high": "high"
+    },
+    "disableResponseStorage": "Disable response storage (disable_response_storage)",
+    "providerConfig": "Provider Configuration",
+    "providerKey": "Provider Name (provider_key)",
+    "providerKeyRequired": "Provider name is required",
+    "providerKeyPlaceholder": "e.g., azure, openrouter, custom",
+    "providerKeyHint": "Identifier for [model_providers.xxx] in config file, lowercase recommended",
+    "baseUrl": "API Base URL (base_url)",
+    "baseUrlRequired": "API Base URL is required",
+    "baseUrlPlaceholder": "https://api.example.com/v1",
+    "wireApi": "Wire API (wire_api)",
+    "wireApiPlaceholder": "responses",
+    "wireApiHint": "API response format type, usually responses",
+    "requiresOpenAIAuth": "Requires OpenAI format authentication (requires_openai_auth)",
+    "openaiConfig": "OpenAI Configuration",
+    "openaiBaseUrl": "Base URL (base_url)",
+    "openaiBaseUrlPlaceholder": "Leave empty to use default: https://api.openai.com/v1",
+    "openaiBaseUrlHint": "Only fill in when you need to override the default address",
+    "apiAuth": "API Authentication (auth.json)",
+    "openaiApiKey": "OPENAI_API_KEY",
+    "customFields": "Custom Fields",
+    "addCustomField": "Add custom field",
+    "addOtherAuthField": "Add other auth field",
+    "fieldName": "Field name",
+    "fieldValue": "Field value",
+    "add": "Add",
+    "advancedConfig": "Advanced",
+    "configPreview": "config.toml (Preview)"
+  },
+  "notification": {
+    "providerDeleted": "Provider deleted",
+    "providerUpdated": "Provider updated",
+    "providerAdded": "Provider added",
+    "providerSwitched": "Provider switched",
+    "projectAdded": "Project added",
+    "projectDeleted": "Project deleted",
+    "exportedToDirectory": "Configuration exported to directory",
+    "authCopied": "auth.json copied to clipboard",
+    "configCopied": "config.toml copied to clipboard",
+    "exportFailed": "Export failed",
+    "copyFailed": "Copy failed",
+    "saveFailed": "Save failed"
+  }
+}
