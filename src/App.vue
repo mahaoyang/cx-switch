@@ -316,12 +316,7 @@ const selectedProvider = computed(() => {
 
 onMounted(async () => {
   // 初始化本地存储
-  const initialized = await LocalStore.init()
-  if (!initialized) {
-    showNotification('Please select a directory to store your configurations', 'error')
-    return
-  }
-
+  await LocalStore.init()
   await loadProviders()
   await loadGlobalConfig()
 })
@@ -358,9 +353,10 @@ function selectProvider(id) {
 
 function editProvider(provider) {
   editingProvider.value = provider
+  const { name, ...providerData } = provider
   formData.value = {
-    name: provider.name,
-    provider: { ...provider }
+    name: name,
+    provider: { ...providerData }
   }
 }
 
