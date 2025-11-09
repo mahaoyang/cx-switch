@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/postcss'
 import fs from 'fs/promises'
 import path from 'path'
 import os from 'os'
+import { applyCodexConfig, getSystemInfo } from './server/codexSync.js'
 
 // 使用用户主目录存储数据，不会被 npm 更新覆盖
 const DATA_DIR = path.join(os.homedir(), '.cx-switch')
@@ -51,6 +52,42 @@ export default defineConfig({
                 await fs.writeFile(filePath, body, 'utf-8')
                 res.setHeader('Content-Type', 'application/json')
                 res.end(JSON.stringify({ success: true }))
+              } catch (error) {
+                res.statusCode = 500
+                res.end(JSON.stringify({ error: error.message }))
+              }
+            })
+            return
+          }
+
+          if (req.url === '/api/system-info') {
+            try {
+              const info = await getSystemInfo()
+              res.setHeader('Content-Type', 'application/json')
+              res.end(JSON.stringify(info))
+            } catch (error) {
+              res.statusCode = 500
+              res.end(JSON.stringify({ error: error.message }))
+            }
+            return
+          }
+
+          if (req.url === '/api/apply-config' && req.method === 'POST') {
+            let body = ''
+            req.on('data', chunk => { body += chunk.toString() })
+            req.on('end', async () => {
+              try {
+                const payload = JSON.parse(body || '{}')
+                const { provider, globalConfig = {}, options = {} } = payload
+                if (!provider) {
+                  res.statusCode = 400
+                  res.end(JSON.stringify({ error: 'Missing provider payload' }))
+                  return
+                }
+
+                const result = await applyCodexConfig({ provider, globalConfig, options })
+                res.setHeader('Content-Type', 'application/json')
+                res.end(JSON.stringify({ success: true, ...result }))
               } catch (error) {
                 res.statusCode = 500
                 res.end(JSON.stringify({ error: error.message }))
