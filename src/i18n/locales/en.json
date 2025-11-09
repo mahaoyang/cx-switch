@@ -20,6 +20,8 @@
   },
   "detail": {
     "switchTo": "Switch to this provider",
+    "showKeys": "Show Keys",
+    "hideKeys": "Hide Keys",
     "tabs": {
       "preview": "Configuration Preview",
       "export": "Export Configuration",

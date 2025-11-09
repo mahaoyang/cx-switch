@@ -17,13 +17,22 @@
         <!-- API Key -->
         <div>
           <label class="block text-sm font-medium text-white mb-2">{{ t('providerEditor.openaiApiKey') }} *</label>
-          <input
-            v-model="localProvider.auth.OPENAI_API_KEY"
-            placeholder="sk-..."
-            type="password"
-            @input="emitChange"
-            class="w-full px-3 py-2 bg-slate-800 border border-white/10 rounded text-white focus:ring-2 focus:ring-teal-400/50"
-          />
+          <div class="relative">
+            <input
+              v-model="localProvider.auth.OPENAI_API_KEY"
+              placeholder="sk-..."
+              :type="showApiKey ? 'text' : 'password'"
+              @input="emitChange"
+              class="w-full px-3 py-2 pr-10 bg-slate-800 border border-white/10 rounded text-white focus:ring-2 focus:ring-teal-400/50"
+            />
+            <button
+              @click="showApiKey = !showApiKey"
+              type="button"
+              class="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-white transition-colors hover:!-translate-y-1/2"
+            >
+              <component :is="showApiKey ? EyeOff : Eye" :size="18" />
+            </button>
+          </div>
         </div>
 
         <!-- 模型名称 -->
@@ -40,12 +49,12 @@
         <!-- 推理强度 -->
         <div>
           <label class="block text-sm font-medium text-white mb-2">{{ t('providerEditor.reasoningEffort') }}</label>
-          <select v-model="localProvider.modelReasoningEffort" @change="emitChange" class="w-full px-3 py-2 bg-slate-800 border border-white/10 rounded text-white focus:ring-2 focus:ring-teal-400/50">
+          <Select v-model="localProvider.modelReasoningEffort" @update:modelValue="emitChange">
             <option value="">{{ t('providerEditor.reasoningEffortOptions.notSet') }}</option>
             <option value="low">{{ t('providerEditor.reasoningEffortOptions.low') }}</option>
             <option value="medium">{{ t('providerEditor.reasoningEffortOptions.medium') }}</option>
             <option value="high">{{ t('providerEditor.reasoningEffortOptions.high') }}</option>
-          </select>
+          </Select>
         </div>
       </div>
     </section>
@@ -160,7 +169,21 @@
             <div v-for="(value, key) in authCustomFields" :key="key" class="mb-4 p-3 bg-teal-500/10 rounded">
               <label class="block text-sm text-gray-300 mb-2">{{ key }}</label>
               <div class="flex gap-2">
-                <input v-model="localProvider.auth[key]" @input="emitChange" type="password" class="flex-1 px-3 py-2 bg-slate-800 border border-white/10 rounded text-white focus:ring-2 focus:ring-teal-400/50" />
+                <div class="flex-1 relative">
+                  <input
+                    v-model="localProvider.auth[key]"
+                    @input="emitChange"
+                    :type="showAuthFields[key] ? 'text' : 'password'"
+                    class="w-full px-3 py-2 pr-10 bg-slate-800 border border-white/10 rounded text-white focus:ring-2 focus:ring-teal-400/50"
+                  />
+                  <button
+                    @click="toggleAuthFieldVisibility(key)"
+                    type="button"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-white transition-colors hover:!-translate-y-1/2"
+                  >
+                    <component :is="showAuthFields[key] ? EyeOff : Eye" :size="16" />
+                  </button>
+                </div>
                 <button @click="removeAuthField(key)" class="px-3 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 rounded transition-all flex items-center justify-center" title="删除">
                   <Trash2 :size="16" />
                 </button>
@@ -188,13 +211,17 @@
         <section class="p-4 bg-white/10 rounded-lg">
           <h4 class="text-base font-semibold text-white mb-4">{{ t('providerEditor.configPreview') }}</h4>
 
-          <h5 class="text-sm font-medium text-gray-300 mb-2">auth.json</h5>
-          <textarea
-            v-model="rawAuth"
-            rows="4"
-            @blur="syncRawAuth"
-            class="w-full px-3 py-2 bg-slate-900 border border-white/10 rounded text-white font-mono text-sm focus:ring-2 focus:ring-teal-400/50 mb-4"
-          ></textarea>
+          <div class="flex justify-between items-center mb-2">
+            <h5 class="text-sm font-medium text-gray-300">auth.json</h5>
+            <button
+              @click="showSensitiveData = !showSensitiveData"
+              class="flex items-center gap-2 px-3 py-1 text-xs bg-white/5 hover:bg-white/10 rounded transition-colors text-gray-300 hover:!translate-y-0"
+            >
+              <component :is="showSensitiveData ? EyeOff : Eye" :size="14" />
+              {{ showSensitiveData ? t('detail.hideKeys') : t('detail.showKeys') }}
+            </button>
+          </div>
+          <pre class="bg-slate-900 border border-white/10 rounded p-4 overflow-x-auto font-mono text-sm leading-relaxed text-gray-300 mb-4">{{ showSensitiveData ? unmaskedAuthPreview : maskedAuthPreview }}</pre>
 
           <h5 class="text-sm font-medium text-gray-300 mb-2">config.toml</h5>
           <pre class="bg-slate-900 border border-white/10 rounded p-4 overflow-x-auto font-mono text-sm leading-relaxed text-gray-300 m-0">{{ tomlPreview }}</pre>
@@ -208,8 +235,9 @@
 import { ref, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ProviderManager } from '../utils/providerManager.js'
-import { Plus, Trash2 } from 'lucide-vue-next'
+import { Plus, Trash2, Eye, EyeOff } from 'lucide-vue-next'
 import Switch from './Switch.vue'
+import Select from './Select.vue'
 
 const { t } = useI18n()
 
@@ -248,8 +276,9 @@ const newFieldKey = ref('')
 const newFieldValue = ref('')
 const newAuthKey = ref('')
 const newAuthValue = ref('')
-
-const rawAuth = ref(JSON.stringify(props.modelValue.auth || {}, null, 2))
+const showSensitiveData = ref(false)
+const showApiKey = ref(false)
+const showAuthFields = ref({})
 
 const isCustom = computed(() => localProvider.value.isCustom)
 
@@ -271,9 +300,27 @@ const tomlPreview = computed(() => {
   return ProviderManager.generateToml(localProvider.value, props.globalConfig)
 })
 
+const maskedAuthPreview = computed(() => {
+  const masked = {}
+  for (const [key, value] of Object.entries(localProvider.value.auth || {})) {
+    if (key.toLowerCase().includes('key') ||
+        key.toLowerCase().includes('token') ||
+        key.toLowerCase().includes('password') ||
+        key.toLowerCase().includes('secret')) {
+      masked[key] = value ? '********' : ''
+    } else {
+      masked[key] = value
+    }
+  }
+  return JSON.stringify(masked, null, 2)
+})
+
+const unmaskedAuthPreview = computed(() => {
+  return JSON.stringify(localProvider.value.auth || {}, null, 2)
+})
+
 watch(() => props.modelValue, (newVal) => {
   localProvider.value = { ...newVal }
-  rawAuth.value = JSON.stringify(newVal.auth || {}, null, 2)
 }, { deep: true })
 
 function extractDomainName(url) {
@@ -340,16 +387,12 @@ function addAuthField() {
 
 function removeAuthField(key) {
   delete localProvider.value.auth[key]
+  delete showAuthFields.value[key]
   emitChange()
 }
 
-function syncRawAuth() {
-  try {
-    localProvider.value.auth = JSON.parse(rawAuth.value)
-    emitChange()
-  } catch (e) {
-    rawAuth.value = JSON.stringify(localProvider.value.auth, null, 2)
-  }
+function toggleAuthFieldVisibility(key) {
+  showAuthFields.value[key] = !showAuthFields.value[key]
 }
 </script>
 

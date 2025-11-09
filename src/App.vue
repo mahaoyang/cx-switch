@@ -82,11 +82,11 @@
             <!-- 次要信息 -->
             <div class="space-y-0.5">
               <div class="flex items-center gap-1.5">
-                <span class="text-[10px] text-gray-500">{{ t('provider.name') }}:</span>
+                <Server :size="12" class="text-gray-500" />
                 <span class="text-[10px] text-gray-400">{{ provider.isCustom ? provider.providerKey : t('providerEditor.officialOpenAI') }}</span>
               </div>
               <div class="flex items-center gap-1.5">
-                <span class="text-[10px] text-gray-500">{{ t('provider.model') }}:</span>
+                <Cpu :size="12" class="text-gray-500" />
                 <span class="text-[10px] text-gray-400">{{ provider.model || t('provider.notSet') }}</span>
               </div>
             </div>
@@ -140,8 +140,17 @@
           <!-- 预览标签页 -->
           <div v-show="activeTab === 'preview'" class="animate-[fadeIn_0.3s]">
             <div class="mb-6">
-              <h3 class="text-lg font-semibold text-white mb-2">auth.json</h3>
-              <pre class="bg-slate-900 border border-white/10 rounded-lg p-4 overflow-x-auto font-mono text-sm leading-relaxed text-gray-300">{{ formatJson(selectedProvider.auth) }}</pre>
+              <div class="flex justify-between items-center mb-2">
+                <h3 class="text-lg font-semibold text-white">auth.json</h3>
+                <button
+                  @click="showSensitiveData = !showSensitiveData"
+                  class="flex items-center gap-2 px-3 py-1 text-sm bg-white/5 hover:bg-white/10 rounded transition-colors text-gray-300 hover:!translate-y-0"
+                >
+                  <component :is="showSensitiveData ? EyeOff : Eye" :size="16" />
+                  {{ showSensitiveData ? t('detail.hideKeys') : t('detail.showKeys') }}
+                </button>
+              </div>
+              <pre class="bg-slate-900 border border-white/10 rounded-lg p-4 overflow-x-auto font-mono text-sm leading-relaxed text-gray-300">{{ showSensitiveData ? formatJson(selectedProvider.auth) : formatJsonWithMaskedKeys(selectedProvider.auth) }}</pre>
             </div>
 
             <div class="mb-6">
@@ -188,10 +197,10 @@
                 </div>
                 <div class="mb-6">
                   <label class="block text-sm text-gray-300 mb-2">{{ t('projects.trustLevel') }}</label>
-                  <select v-model="project.trust_level" @change="saveGlobalConfig" class="w-full px-3 py-2 bg-slate-800 border border-white/10 rounded text-white focus:ring-2 focus:ring-teal-400/50">
+                  <Select v-model="project.trust_level" @update:modelValue="saveGlobalConfig">
                     <option value="trusted">{{ t('projects.trusted') }}</option>
                     <option value="untrusted">{{ t('projects.untrusted') }}</option>
-                  </select>
+                  </Select>
                 </div>
               </div>
 
@@ -201,10 +210,10 @@
                   :placeholder="t('projects.pathPlaceholder')"
                   class="flex-1 px-3 py-2 bg-slate-800 border border-white/10 rounded text-white focus:ring-2 focus:ring-teal-400/50"
                 />
-                <select v-model="newProjectTrust" class="px-3 py-2 bg-slate-800 border border-white/10 rounded text-white focus:ring-2 focus:ring-teal-400/50">
+                <Select v-model="newProjectTrust">
                   <option value="trusted">trusted</option>
                   <option value="untrusted">untrusted</option>
-                </select>
+                </Select>
                 <button @click="addProject" class="px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded transition-all flex items-center gap-2">
                   <Plus :size="18" />
                   {{ t('projects.addProject') }}
@@ -266,7 +275,8 @@ import { ProviderManager } from './utils/providerManager.js'
 import { FileWriter } from './utils/fileWriter.js'
 import { LocalStore } from './utils/localStore.js'
 import ProviderEditor from './components/ProviderEditor.vue'
-import { Plus, Edit, Trash2, Check, FolderDown, Copy, X, Languages } from 'lucide-vue-next'
+import Select from './components/Select.vue'
+import { Plus, Edit, Trash2, Check, FolderDown, Copy, X, Languages, Server, Cpu, Eye, EyeOff } from 'lucide-vue-next'
 
 const { t, locale } = useI18n()
 
@@ -278,6 +288,7 @@ const editingProvider = ref(null)
 const activeTab = ref('preview')
 const globalConfig = ref({ projects: {} })
 const showLangMenu = ref(false)
+const showSensitiveData = ref(false)
 
 const languages = [
   { value: 'en', label: 'English' },
@@ -508,6 +519,22 @@ function removeProject(path) {
 
 function formatJson(obj) {
   return JSON.stringify(obj, null, 2)
+}
+
+function formatJsonWithMaskedKeys(obj) {
+  const masked = {}
+  for (const [key, value] of Object.entries(obj)) {
+    // 将包含 key、token、password、secret 等敏感字段的值替换为星号
+    if (key.toLowerCase().includes('key') ||
+        key.toLowerCase().includes('token') ||
+        key.toLowerCase().includes('password') ||
+        key.toLowerCase().includes('secret')) {
+      masked[key] = value ? '********' : ''
+    } else {
+      masked[key] = value
+    }
+  }
+  return JSON.stringify(masked, null, 2)
 }
 
 function generateToml(provider) {

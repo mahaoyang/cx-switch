@@ -20,6 +20,8 @@
   },
   "detail": {
     "switchTo": "切换到此提供商",
+    "showKeys": "显示密钥",
+    "hideKeys": "隐藏密钥",
     "tabs": {
       "preview": "配置预览",
       "export": "导出配置",

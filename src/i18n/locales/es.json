@@ -20,6 +20,8 @@
   },
   "detail": {
     "switchTo": "Cambiar a este proveedor",
+    "showKeys": "Mostrar Claves",
+    "hideKeys": "Ocultar Claves",
     "tabs": {
       "preview": "Vista Previa de Configuración",
       "export": "Exportar Configuración",
