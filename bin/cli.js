@@ -98,7 +98,21 @@ const server = createServer(async (req, res) => {
   }
 })
 
-const PORT = 3000
+// 智能查找可用端口
+async function findAvailablePort(startPort) {
+  return new Promise((resolve) => {
+    const testServer = createServer()
+    testServer.listen(startPort, () => {
+      const port = testServer.address().port
+      testServer.close(() => resolve(port))
+    })
+    testServer.on('error', () => {
+      resolve(findAvailablePort(startPort + 1))
+    })
+  })
+}
+
+const PORT = await findAvailablePort(3000)
 
 server.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`)
