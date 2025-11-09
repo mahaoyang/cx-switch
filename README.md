@@ -43,6 +43,8 @@ After installation, simply run:
 
 ```bash
 cx-switch
+# or use the shorter command
+cx
 ```
 
 This will:
