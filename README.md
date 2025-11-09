@@ -2,6 +2,8 @@
 
 A beautiful web UI for managing and switching Codex API provider configurations.
 
+![CX Switch Screenshot](docs/screenshot.png)
+
 ## Features
 
 - 🎨 **Modern Interface**: Beautiful, intuitive web UI with glass-morphism design
