@@ -53,7 +53,6 @@
             :key="provider.id"
             class="provider-item p-4 rounded-lg cursor-pointer relative group"
             :class="{
-              'provider-item--active': provider.id === activeProviderId,
               'provider-item--selected': provider.id === selectedProviderId
             }"
             @click="selectProvider(provider.id)"
