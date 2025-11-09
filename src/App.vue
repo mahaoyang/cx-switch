@@ -51,13 +51,15 @@
           <div
             v-for="provider in providers"
             :key="provider.id"
-            class="provider-item p-4 rounded-lg cursor-pointer relative group"
-            :class="{ 'border-teal-400': provider.id === activeProviderId }"
+            class="provider-item p-4 rounded-lg cursor-pointer relative group border border-transparent transition-all duration-200"
+            :class="{
+              'border-teal-400 shadow-lg shadow-teal-900/30': provider.id === activeProviderId,
+              'border-cyan-400/60': provider.id === selectedProviderId && provider.id !== activeProviderId
+            }"
             @click="selectProvider(provider.id)"
           >
-            <!-- 右上角：当前标记、编辑和删除按钮 -->
+            <!-- 右上角：编辑和删除按钮 -->
             <div class="absolute top-3 right-3 flex items-center gap-1.5">
-              <span v-if="provider.id === activeProviderId" class="px-2 py-0.5 bg-teal-500 text-white text-xs rounded font-medium">{{ t('sidebar.current') }}</span>
               <button
                 @click.stop="editProvider(provider)"
                 class="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 hover:bg-blue-500/20 rounded text-blue-400 hover:text-blue-300"
@@ -73,6 +75,13 @@
                 <Trash2 :size="16" />
               </button>
             </div>
+
+            <span
+              v-if="provider.id === activeProviderId"
+              class="absolute bottom-3 right-3 px-2 py-0.5 bg-teal-500 text-white text-xs rounded font-medium shadow-md"
+            >
+              {{ t('sidebar.current') }}
+            </span>
 
             <!-- 主标题 -->
             <h3 class="text-lg font-semibold text-white mb-2 pr-24">

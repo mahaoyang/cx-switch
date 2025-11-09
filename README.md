@@ -6,12 +6,12 @@ A beautiful web UI for managing and switching Codex API provider configurations.
 
 ## Features
 
+- 🪟 **Windows/WSL Sync**: Optional toggle keeps Windows and WSL configs in sync when switching
 - 🎨 **Modern Interface**: Beautiful, intuitive web UI with glass-morphism design
 - 🔐 **Secure Storage**: Keys stored safely in `~/.cx-switch/` (not affected by npm updates)
 - 🔑 **Key Masking**: Sensitive information hidden by default with toggle visibility
 - 🌍 **Multi-language**: Support for English, 中文, and Español
 - ⚡ **Fast Switching**: One-click switching between providers
-- 🪟 **Windows/WSL Sync**: Optional toggle keeps Windows and WSL configs in sync when switching
 - 📦 **Easy Management**: Add, edit, and delete configurations effortlessly
 - 🔄 **Export**: Export to `~/.codex` directory or clipboard
 - 🎯 **Project Trust**: Manage project-specific trust levels
