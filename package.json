@@ -11,7 +11,7 @@
     "switch",
     "openai"
   ],
-  "author": "Your Name",
+  "author": "supadaddy",
   "license": "MIT",
   "bin": {
     "cx-switch": "./bin/cli.js",
