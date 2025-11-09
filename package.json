@@ -14,8 +14,8 @@
   "author": "hy",
   "license": "MIT",
   "bin": {
-    "cx-switch": "./bin/cli.js",
-    "cx": "./bin/cli.js"
+    "cx-switch": "bin/cli.js",
+    "cx": "bin/cli.js"
   },
   "files": [
     "bin",
