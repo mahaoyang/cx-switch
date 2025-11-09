@@ -1,5 +1,6 @@
 // 提供商管理工具
 import { LocalStore } from './localStore.js'
+import { generateCodexToml } from './codexConfig.js'
 
 const PROVIDERS_FILE = 'providers.json'
 const ACTIVE_PROVIDER_FILE = 'active-provider.json'
@@ -87,57 +88,7 @@ export class ProviderManager {
 
   // 生成 TOML 格式
   static generateToml(provider, globalConfig = {}) {
-    let toml = ''
-
-    // 基础配置
-    if (provider.model) toml += `model = "${provider.model}"\n`
-    if (provider.modelReasoningEffort) {
-      toml += `model_reasoning_effort = "${provider.modelReasoningEffort}"\n`
-    }
-
-    // 如果是自定义提供商
-    if (provider.isCustom) {
-      toml += `model_provider = "${provider.providerKey}"\n`
-      toml += '\n'
-      toml += `[model_providers.${provider.providerKey}]\n`
-      if (provider.baseUrl) toml += `base_url = "${provider.baseUrl}"\n`
-      if (provider.wireApi) toml += `wire_api = "${provider.wireApi}"\n`
-      if (provider.requiresOpenAIAuth !== undefined) {
-        toml += `requires_openai_auth = ${provider.requiresOpenAIAuth}\n`
-      }
-
-      // 自定义字段
-      if (provider.customFields) {
-        Object.entries(provider.customFields).forEach(([key, value]) => {
-          if (typeof value === 'boolean') {
-            toml += `${key} = ${value}\n`
-          } else if (typeof value === 'number') {
-            toml += `${key} = ${value}\n`
-          } else {
-            toml += `${key} = "${value}"\n`
-          }
-        })
-      }
-    } else {
-      // 默认提供商（OpenAI）
-      if (provider.baseUrl) toml += `base_url = "${provider.baseUrl}"\n`
-    }
-
-    if (provider.disableResponseStorage) {
-      toml += '\ndisable_response_storage = true\n'
-    }
-
-    // 全局配置：项目信任级别
-    if (globalConfig.projects && Object.keys(globalConfig.projects).length > 0) {
-      toml += '\n'
-      Object.entries(globalConfig.projects).forEach(([path, config]) => {
-        toml += `[projects."${path}"]\n`
-        if (config.trust_level) toml += `trust_level = "${config.trust_level}"\n`
-        toml += '\n'
-      })
-    }
-
-    return toml.trim()
+    return generateCodexToml(provider, globalConfig)
   }
 
 }

@@ -22,6 +22,9 @@
     "switchTo": "切换到此提供商",
     "showKeys": "显示密钥",
     "hideKeys": "隐藏密钥",
+    "dualSyncLabel": "同时同步 {target}",
+    "dualSyncTooltip": "开启后，会同时覆盖当前系统与 {target} 用户目录下的 ~/.codex 配置。",
+    "dualSyncUnavailable": "当前环境暂不支持双端同步",
     "tabs": {
       "preview": "配置预览",
       "export": "导出配置",
@@ -111,6 +114,7 @@
     "configCopied": "config.toml 已复制到剪贴板",
     "exportFailed": "导出失败",
     "copyFailed": "复制失败",
-    "saveFailed": "保存失败"
+    "saveFailed": "保存失败",
+    "applyFailed": "应用配置失败"
   }
 }

@@ -101,16 +101,36 @@
       <!-- 右侧：提供商详情和操作 -->
       <main class="glass-card rounded-2xl p-6">
         <div v-if="selectedProvider" class="h-full">
-          <div class="flex justify-between items-center mb-6">
+          <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
             <h2 class="text-2xl font-bold text-white m-0">{{ selectedProvider.name }}</h2>
-            <button
-              v-if="selectedProvider.id !== activeProviderId"
-              @click="activateProvider(selectedProvider.id)"
-              class="px-6 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-lg transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2"
-            >
-              <Check :size="18" />
-              {{ t('detail.switchTo') }}
-            </button>
+            <div class="flex items-center gap-4">
+              <div
+                v-if="selectedProvider.id !== activeProviderId && systemInfo.dualSyncAvailable"
+                class="relative group"
+              >
+                <Switch v-model="dualSyncEnabled">
+                  {{ t('detail.dualSyncLabel', { target: dualSyncTargetName || 'Windows/WSL' }) }}
+                </Switch>
+                <div class="absolute left-0 top-full mt-2 w-64 text-xs leading-relaxed text-white bg-black/80 rounded-lg p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  {{ dualSyncTooltipText }}
+                </div>
+              </div>
+              <div
+                v-else-if="selectedProvider.id !== activeProviderId && systemInfo.dualSyncReason"
+                class="text-xs text-gray-400 max-w-xs"
+                :title="systemInfo.dualSyncReason"
+              >
+                {{ t('detail.dualSyncUnavailable') }}
+              </div>
+              <button
+                v-if="selectedProvider.id !== activeProviderId"
+                @click="activateProvider(selectedProvider.id)"
+                class="px-6 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-lg transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2"
+              >
+                <Check :size="18" />
+                {{ t('detail.switchTo') }}
+              </button>
+            </div>
           </div>
 
           <div class="flex gap-2 mb-4 border-b border-white/10 pb-2">
@@ -269,13 +289,14 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ProviderManager } from './utils/providerManager.js'
 import { FileWriter } from './utils/fileWriter.js'
 import { LocalStore } from './utils/localStore.js'
 import ProviderEditor from './components/ProviderEditor.vue'
 import Select from './components/Select.vue'
+import Switch from './components/Switch.vue'
 import { Plus, Edit, Trash2, Check, FolderDown, Copy, X, Languages, Server, Cpu, Eye, EyeOff } from 'lucide-vue-next'
 
 const { t, locale } = useI18n()
@@ -289,6 +310,37 @@ const activeTab = ref('preview')
 const globalConfig = ref({ projects: {} })
 const showLangMenu = ref(false)
 const showSensitiveData = ref(false)
+const systemInfo = ref({
+  platform: 'unknown',
+  dualSyncAvailable: false,
+  dualSyncReason: ''
+})
+const dualSyncEnabled = ref(false)
+
+const dualSyncTargetName = computed(() => {
+  if (systemInfo.value?.dualSyncTargetLabel) {
+    return systemInfo.value.dualSyncTargetLabel
+  }
+  if (systemInfo.value?.platform === 'windows') return 'WSL'
+  if (systemInfo.value?.platform === 'wsl') return 'Windows'
+  return 'Windows/WSL'
+})
+
+const dualSyncTooltipText = computed(() => {
+  if (systemInfo.value.dualSyncAvailable) {
+    return t('detail.dualSyncTooltip', { target: dualSyncTargetName.value })
+  }
+  return systemInfo.value.dualSyncReason || t('detail.dualSyncUnavailable')
+})
+
+watch(
+  () => systemInfo.value.dualSyncAvailable,
+  (available) => {
+    if (!available) {
+      dualSyncEnabled.value = false
+    }
+  }
+)
 
 const languages = [
   { value: 'en', label: 'English' },
@@ -330,6 +382,7 @@ onMounted(async () => {
   await LocalStore.init()
   await loadProviders()
   await loadGlobalConfig()
+  await loadSystemInfo()
 })
 
 async function loadProviders() {
@@ -351,6 +404,18 @@ async function loadProviders() {
 
 async function loadGlobalConfig() {
   globalConfig.value = await ProviderManager.getGlobalConfig()
+}
+
+async function loadSystemInfo() {
+  try {
+    const response = await fetch('/api/system-info')
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    systemInfo.value = await response.json()
+  } catch (error) {
+    console.warn('Load system info error:', error)
+  }
 }
 
 async function saveGlobalConfig() {
@@ -444,10 +509,60 @@ function closeModal() {
   }
 }
 
+async function applySelectedProviderConfig(provider = selectedProvider.value) {
+  if (!provider) {
+    throw new Error('No provider selected')
+  }
+
+  const payload = {
+    provider,
+    globalConfig: JSON.parse(JSON.stringify(globalConfig.value || {})),
+    options: {
+      dualSync: dualSyncEnabled.value
+    }
+  }
+
+  const response = await fetch('/api/apply-config', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+
+  let data = {}
+  try {
+    data = await response.json()
+  } catch {
+    data = {}
+  }
+
+  if (!response.ok || data.error) {
+    throw new Error(data.error || 'Failed to apply configuration')
+  }
+
+  if (data.systemInfo) {
+    systemInfo.value = data.systemInfo
+  }
+
+  return data
+}
+
 async function activateProvider(id) {
-  activeProviderId.value = id
-  await ProviderManager.setActiveProvider(id)
-  showNotification(t('notification.providerSwitched'), 'success')
+  try {
+    const provider = providers.value.find(p => p.id === id)
+    if (!provider) {
+      throw new Error('Provider not found')
+    }
+
+    await applySelectedProviderConfig(provider)
+    activeProviderId.value = id
+    await ProviderManager.setActiveProvider(id)
+    showNotification(t('notification.providerSwitched'), 'success')
+  } catch (error) {
+    console.error('Activate provider error:', error)
+    showNotification(t('notification.applyFailed') + ': ' + error.message, 'error')
+  }
 }
 
 async function exportToDirectory() {

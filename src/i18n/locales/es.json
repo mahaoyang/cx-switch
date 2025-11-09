@@ -22,6 +22,9 @@
     "switchTo": "Cambiar a este proveedor",
     "showKeys": "Mostrar Claves",
     "hideKeys": "Ocultar Claves",
+    "dualSyncLabel": "Sincronizar también con {target}",
+    "dualSyncTooltip": "Al activarlo, CX Switch sobrescribe ~/.codex tanto en este sistema como en {target}.",
+    "dualSyncUnavailable": "La sincronización dual no está disponible en este entorno",
     "tabs": {
       "preview": "Vista Previa de Configuración",
       "export": "Exportar Configuración",
@@ -111,6 +114,7 @@
     "configCopied": "config.toml copiado al portapapeles",
     "exportFailed": "Exportación fallida",
     "copyFailed": "Copia fallida",
-    "saveFailed": "Guardado fallido"
+    "saveFailed": "Guardado fallido",
+    "applyFailed": "No se pudo aplicar la configuración del proveedor"
   }
 }

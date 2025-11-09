@@ -22,6 +22,9 @@
     "switchTo": "Switch to this provider",
     "showKeys": "Show Keys",
     "hideKeys": "Hide Keys",
+    "dualSyncLabel": "Also sync {target}",
+    "dualSyncTooltip": "When enabled, CX Switch overwrites ~/.codex on both this system and {target}.",
+    "dualSyncUnavailable": "Dual sync is unavailable in this environment",
     "tabs": {
       "preview": "Configuration Preview",
       "export": "Export Configuration",
@@ -111,6 +114,7 @@
     "configCopied": "config.toml copied to clipboard",
     "exportFailed": "Export failed",
     "copyFailed": "Copy failed",
-    "saveFailed": "Save failed"
+    "saveFailed": "Save failed",
+    "applyFailed": "Failed to apply provider configuration"
   }
 }

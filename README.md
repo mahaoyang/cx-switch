@@ -11,6 +11,7 @@ A beautiful web UI for managing and switching Codex API provider configurations.
 - 🔑 **Key Masking**: Sensitive information hidden by default with toggle visibility
 - 🌍 **Multi-language**: Support for English, 中文, and Español
 - ⚡ **Fast Switching**: One-click switching between providers
+- 🪟 **Windows/WSL Sync**: Optional toggle keeps Windows and WSL configs in sync when switching
 - 📦 **Easy Management**: Add, edit, and delete configurations effortlessly
 - 🔄 **Export**: Export to `~/.codex` directory or clipboard
 - 🎯 **Project Trust**: Manage project-specific trust levels
@@ -73,6 +74,8 @@ This will:
 1. Select a provider from the left sidebar
 2. Click "Switch to this provider" button
 3. The active provider will be marked with "Current"
+
+Switching automatically writes `auth.json` and `config.toml` into your `~/.codex` directory under the current user. When running on Windows or inside WSL, a tooltip-enabled toggle appears next to the button so you can also sync the other side (Windows ↔ WSL) in one go.
 
 ### Exporting Configuration
 
