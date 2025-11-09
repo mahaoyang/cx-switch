@@ -1,5 +1,5 @@
 {
-  "name": "codex-provider-manager",
+  "name": "cx-switch",
   "version": "0.1.1",
   "type": "module",
   "description": "A beautiful web UI for managing and switching Codex API provider configurations",
@@ -14,7 +14,7 @@
   "author": "Your Name",
   "license": "MIT",
   "bin": {
-    "codex-provider-manager": "./bin/cli.js"
+    "cx-switch": "./bin/cli.js"
   },
   "files": [
     "bin",

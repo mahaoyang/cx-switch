@@ -1,4 +1,4 @@
-# Codex Provider Manager
+# CX Switch
 
 A beautiful web UI for managing and switching Codex API provider configurations.
 
@@ -19,20 +19,20 @@ A beautiful web UI for managing and switching Codex API provider configurations.
 ### Global Installation (Recommended)
 
 ```bash
-npm install -g codex-provider-manager
+npm install -g cx-switch
 ```
 
 ### Run Directly with npx
 
 ```bash
-npx codex-provider-manager
+npx cx-switch
 ```
 
 ### Local Development
 
 ```bash
-git clone https://github.com/yourusername/codex-provider-manager.git
-cd codex-provider-manager
+git clone https://github.com/mahaoyang/cx-switch.git
+cd cx-switch
 npm install
 npm run dev
 ```
@@ -42,7 +42,7 @@ npm run dev
 After installation, simply run:
 
 ```bash
-codex-provider-manager
+cx-switch
 ```
 
 This will:
