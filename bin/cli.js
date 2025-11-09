@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const rootDir = join(__dirname, '..')
 
-console.log('🚀 Starting Codex Switch...')
+console.log('🚀 Starting Codex Provider Manager...')
 
 // 启动 Vite 开发服务器
 const vite = spawn('npm', ['run', 'dev'], {
@@ -26,7 +26,7 @@ setTimeout(() => {
 
 // 处理退出信号
 const cleanup = () => {
-  console.log('\n👋 Shutting down Codex Switch...')
+  console.log('\n👋 Shutting down Codex Provider Manager...')
   vite.kill()
   process.exit(0)
 }
