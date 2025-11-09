@@ -51,10 +51,10 @@
           <div
             v-for="provider in providers"
             :key="provider.id"
-            class="provider-item p-4 rounded-lg cursor-pointer relative group border border-transparent transition-all duration-200"
+            class="provider-item p-4 rounded-lg cursor-pointer relative group"
             :class="{
-              'border-teal-400 shadow-lg shadow-teal-900/30': provider.id === activeProviderId,
-              'border-cyan-400/60': provider.id === selectedProviderId && provider.id !== activeProviderId
+              'provider-item--active': provider.id === activeProviderId,
+              'provider-item--selected': provider.id === selectedProviderId
             }"
             @click="selectProvider(provider.id)"
           >
