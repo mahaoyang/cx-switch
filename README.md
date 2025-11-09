@@ -1,75 +1,103 @@
-# Codex Config Switcher
+# Codex Switch
 
-一个用于管理和快速切换 Codex 配置文件（`~/.codex/auth.json` 和 `~/.codex/config.toml`）的 Web 应用。
+A beautiful web UI for managing and switching Codex API provider configurations.
 
-## 功能特点
+## Features
 
-- 📦 **多配置管理**：存储多套配置，支持不同的 API 密钥和模型设置
-- ✏️ **可视化编辑**：通过友好的界面编辑 JSON 和 TOML 配置
-- 🔄 **一键切换**：快速在不同配置之间切换
-- 💾 **本地存储**：所有配置保存在浏览器本地存储中
-- 📤 **灵活导出**：
-  - 导出到指定目录（选择 `~/.codex` 目录）
-  - 复制到剪贴板
-- 🎨 **现代界面**：响应式设计，支持深色模式
+- 🎨 **Modern Interface**: Beautiful, intuitive web UI with glass-morphism design
+- 🔐 **Secure Storage**: Keys stored safely in `~/.codex-switch/` (not affected by npm updates)
+- 🔑 **Key Masking**: Sensitive information hidden by default with toggle visibility
+- 🌍 **Multi-language**: Support for English, 中文, and Español
+- ⚡ **Fast Switching**: One-click switching between providers
+- 📦 **Easy Management**: Add, edit, and delete configurations effortlessly
+- 🔄 **Export**: Export to `~/.codex` directory or clipboard
+- 🎯 **Project Trust**: Manage project-specific trust levels
+- 🚀 **Quick Start**: Simple CLI command to launch
 
-## 快速开始
+## Installation
 
-### 1. 安装依赖
+### Global Installation (Recommended)
 
 ```bash
-npm install
+npm install -g codex-switch
 ```
 
-### 2. 启动开发服务器
+### Run Directly with npx
 
 ```bash
+npx codex-switch
+```
+
+### Local Development
+
+```bash
+git clone https://github.com/yourusername/codex-switch.git
+cd codex-switch
+npm install
 npm run dev
 ```
 
-应用将在 http://localhost:3000 启动
+## Usage
 
-### 3. 构建生产版本
+After installation, simply run:
 
 ```bash
-npm run build
+codex-switch
 ```
 
-## 使用方法
+This will:
+1. Start the local server on port 3000
+2. Automatically open your browser
+3. You can start managing your Codex configurations!
 
-### 添加配置
+### Adding a Provider
 
-1. 点击左侧 "新增配置" 按钮
-2. 填写配置名称和描述
-3. 输入 `auth.json` 内容（JSON 格式）
-4. 输入 `config.toml` 内容（TOML 格式）
-5. 点击保存
+1. Click "Add New" button
+2. Fill in your API details:
+   - **API Base URL**: e.g., `https://api.openai.com/v1`
+   - **API Key**: Your OpenAI API key (sk-...)
+   - **Model**: e.g., `gpt-4-turbo`, `claude-3-opus`
+   - **Reasoning Effort**: low, medium, or high (optional)
+3. Configure advanced options (optional):
+   - Custom provider settings
+   - Additional auth fields
+   - Project trust levels
+4. Click "Save"
 
-### 编辑配置
+### Switching Providers
 
-1. 在配置列表中点击配置项
-2. 点击 "编辑" 按钮
-3. 修改配置内容
-4. 保存更改
+1. Select a provider from the left sidebar
+2. Click "Switch to this provider" button
+3. The active provider will be marked with "Current"
 
-### 切换配置
+### Exporting Configuration
 
-1. 选择要使用的配置
-2. 点击 "切换到此配置" 按钮
-3. 当前激活的配置会显示 "当前" 标记
+Go to the "Export Configuration" tab and choose:
 
-### 导出配置
+1. **Export to ~/.codex directory**: Directly writes files to your Codex directory
+2. **Copy auth.json**: Copies auth.json content to clipboard
+3. **Copy config.toml**: Copies config.toml content to clipboard
 
-有三种导出方式：
+## Data Storage
 
-1. **导出到目录**：点击 "导出到目录"，选择 `~/.codex` 目录，将自动创建/覆盖 `auth.json` 和 `config.toml`
-2. **复制 auth.json**：将 auth.json 内容复制到剪贴板，然后手动粘贴到文件中
-3. **复制 config.toml**：将 config.toml 内容复制到剪贴板，然后手动粘贴到文件中
+Your configurations are stored in `~/.codex-switch/`:
 
-## 配置示例
+```
+~/.codex-switch/
+├── providers.json         # Your provider configurations
+├── active-provider.json   # Currently active provider
+└── global-config.json     # Global settings
+```
+
+**Important Notes:**
+- ✅ This directory is separate from the npm package
+- ✅ Your data is **safe during npm updates**
+- ✅ API keys stored locally, never sent to any server
+- 📦 You can backup this directory to preserve your configurations
+
+## Configuration Examples
 
 ### auth.json
-
 ```json
 {
   "OPENAI_API_KEY": "sk-your-api-key-here"
@@ -77,12 +105,11 @@ npm run build
 ```
 
 ### config.toml
-
 ```toml
 model = "gpt-4-turbo"
 model_reasoning_effort = "high"
 
-# 自定义提供商配置
+# Custom provider configuration
 model_provider = "azure"
 
 [model_providers.azure]
@@ -90,30 +117,49 @@ base_url = "https://your-resource.openai.azure.com/v1"
 wire_api = "responses"
 requires_openai_auth = true
 
-# 项目信任级别
+# Project trust levels
 [projects."/home/user/workspace/my-project"]
 trust_level = "trusted"
 ```
 
-## 技术栈
+## Tech Stack
 
-- **Vue 3**：渐进式 JavaScript 框架
-- **Vite**：下一代前端构建工具
-- **LocalStorage API**：配置持久化存储
-- **File System Access API**：文件导出功能
+- **Vue 3**: Progressive JavaScript framework
+- **Vite**: Next generation frontend tooling
+- **Tailwind CSS 4**: Utility-first CSS framework
+- **Lucide Icons**: Beautiful icon set
+- **vue-i18n**: Internationalization
 
-## 浏览器要求
+## Development
 
-- Chrome/Edge 86+
-- 需要支持 File System Access API（用于导出到目录功能）
-- 剪贴板 API（用于复制功能）
+```bash
+# Install dependencies
+npm install
 
-## 注意事项
+# Start development server
+npm run dev
 
-- 所有配置数据存储在浏览器的 LocalStorage 中，清除浏览器数据会丢失配置
-- 建议定期备份重要配置
-- API 密钥等敏感信息仅存储在本地，不会上传到任何服务器
+# Build for production
+npm run build
+
+# Run CLI locally
+npm start
+```
+
+## Browser Support
+
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- File System Access API support (for directory export)
+- Clipboard API support (for copy functions)
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT
+MIT License
+
+## Author
+
+[Your Name]

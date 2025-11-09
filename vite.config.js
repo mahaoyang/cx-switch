@@ -3,8 +3,10 @@ import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/postcss'
 import fs from 'fs/promises'
 import path from 'path'
+import os from 'os'
 
-const DATA_DIR = path.join(process.cwd(), 'data')
+// 使用用户主目录存储数据，不会被 npm 更新覆盖
+const DATA_DIR = path.join(os.homedir(), '.codex-switch')
 
 export default defineConfig({
   plugins: [
