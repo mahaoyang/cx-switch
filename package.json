@@ -1,6 +1,6 @@
 {
   "name": "cx-switch",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "type": "module",
   "description": "A beautiful web UI for managing and switching Codex API provider configurations",
   "keywords": [
