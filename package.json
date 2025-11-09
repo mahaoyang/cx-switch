@@ -1,6 +1,6 @@
 {
   "name": "codex-provider-manager",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "A beautiful web UI for managing and switching Codex API provider configurations",
   "keywords": [
