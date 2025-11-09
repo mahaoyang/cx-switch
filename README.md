@@ -5,7 +5,7 @@ A beautiful web UI for managing and switching Codex API provider configurations.
 ## Features
 
 - 🎨 **Modern Interface**: Beautiful, intuitive web UI with glass-morphism design
-- 🔐 **Secure Storage**: Keys stored safely in `~/.codex-switch/` (not affected by npm updates)
+- 🔐 **Secure Storage**: Keys stored safely in `~/.cx-switch/` (not affected by npm updates)
 - 🔑 **Key Masking**: Sensitive information hidden by default with toggle visibility
 - 🌍 **Multi-language**: Support for English, 中文, and Español
 - ⚡ **Fast Switching**: One-click switching between providers
@@ -80,10 +80,10 @@ Go to the "Export Configuration" tab and choose:
 
 ## Data Storage
 
-Your configurations are stored in `~/.codex-switch/`:
+Your configurations are stored in `~/.cx-switch/`:
 
 ```
-~/.codex-switch/
+~/.cx-switch/
 ├── providers.json         # Your provider configurations
 ├── active-provider.json   # Currently active provider
 └── global-config.json     # Global settings

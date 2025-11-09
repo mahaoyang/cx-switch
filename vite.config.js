@@ -6,7 +6,7 @@ import path from 'path'
 import os from 'os'
 
 // 使用用户主目录存储数据，不会被 npm 更新覆盖
-const DATA_DIR = path.join(os.homedir(), '.codex-switch')
+const DATA_DIR = path.join(os.homedir(), '.cx-switch')
 
 export default defineConfig({
   plugins: [
