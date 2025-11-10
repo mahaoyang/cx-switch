@@ -18,6 +18,8 @@ export function generateCodexToml(provider = {}, globalConfig = {}) {
     toml += `model_provider = "${providerKey}"\n`
     toml += '\n'
     toml += `[model_providers.${providerKey}]\n`
+    const providerConfigName = provider.providerName || provider.name || providerKey || 'custom'
+    toml += `name = "${providerConfigName}"\n`
     if (provider.baseUrl) toml += `base_url = "${provider.baseUrl}"\n`
     if (provider.wireApi) toml += `wire_api = "${provider.wireApi}"\n`
     if (provider.requiresOpenAIAuth !== undefined) {

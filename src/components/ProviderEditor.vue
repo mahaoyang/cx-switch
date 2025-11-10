@@ -115,6 +115,17 @@
           </div>
 
           <div class="mb-6">
+            <label class="block text-sm text-gray-300 mb-2">{{ t('providerEditor.providerNameLabel') }}</label>
+            <input
+              v-model="localProvider.providerName"
+              :placeholder="t('providerEditor.providerNamePlaceholder')"
+              @input="emitChange"
+              class="w-full px-3 py-2 bg-slate-800 border border-white/10 rounded text-white focus:ring-2 focus:ring-teal-400/50"
+            />
+            <small class="text-gray-500 text-xs mt-1 block">{{ t('providerEditor.providerNameHint') }}</small>
+          </div>
+
+          <div class="mb-6">
             <label class="block text-sm text-gray-300 mb-2">{{ t('providerEditor.wireApi') }}</label>
             <input
               v-model="localProvider.wireApi"
@@ -251,6 +262,7 @@ const props = defineProps({
       modelReasoningEffort: 'high',
       disableResponseStorage: true,
       baseUrl: '',
+      providerName: '',
       providerKey: '',
       wireApi: 'responses',
       requiresOpenAIAuth: true,
@@ -269,9 +281,18 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'update:name', 'update:providerKey'])
 
-const localProvider = ref({
-  ...props.modelValue
-})
+function normalizeProviderValue(value = {}) {
+  const normalized = {
+    providerName: '',
+    ...value
+  }
+  if (normalized.providerName === undefined || normalized.providerName === null) {
+    normalized.providerName = ''
+  }
+  return normalized
+}
+
+const localProvider = ref(normalizeProviderValue(props.modelValue))
 const newFieldKey = ref('')
 const newFieldValue = ref('')
 const newAuthKey = ref('')
@@ -320,8 +341,17 @@ const unmaskedAuthPreview = computed(() => {
 })
 
 watch(() => props.modelValue, (newVal) => {
-  localProvider.value = { ...newVal }
+  localProvider.value = normalizeProviderValue(newVal)
 }, { deep: true })
+
+watch(() => props.configName, (newName, oldName) => {
+  if (!newName) return
+  const providerName = localProvider.value.providerName
+  if (!providerName || providerName === oldName) {
+    localProvider.value.providerName = newName
+    emitChange()
+  }
+}, { immediate: true })
 
 function extractDomainName(url) {
   try {
