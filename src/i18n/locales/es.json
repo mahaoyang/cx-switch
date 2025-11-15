@@ -75,6 +75,13 @@
       "high": "alto"
     },
     "disableResponseStorage": "Deshabilitar almacenamiento de respuestas (disable_response_storage)",
+    "notSet": "No configurado (dejar vacío para omitir de la configuración)",
+    "askForApproval": "Pedir aprobación (ask_for_approval)",
+    "askForApprovalHint": "Controlar cuándo pedir aprobación antes de ejecutar acciones",
+    "sandbox": "Modo sandbox (sandbox)",
+    "sandboxHint": "Controlar permisos de acceso al sistema de archivos",
+    "skipGitRepoCheck": "Omitir verificación de repositorio git (skip_git_repo_check)",
+    "skipGitRepoCheckHint": "Si se debe omitir la verificación de si el directorio es un repositorio git",
     "providerConfig": "Configuración del Proveedor",
     "providerKey": "Nombre del Proveedor (provider_key)",
     "providerKeyRequired": "El nombre del proveedor es requerido",

@@ -75,6 +75,13 @@
       "high": "high"
     },
     "disableResponseStorage": "Disable response storage (disable_response_storage)",
+    "notSet": "Not set (leave empty to omit from config)",
+    "askForApproval": "Ask for approval (ask_for_approval)",
+    "askForApprovalHint": "Control when to ask for approval before executing actions",
+    "sandbox": "Sandbox mode (sandbox)",
+    "sandboxHint": "Control file system access permissions",
+    "skipGitRepoCheck": "Skip git repo check (skip_git_repo_check)",
+    "skipGitRepoCheckHint": "Whether to skip checking if directory is a git repository",
     "providerConfig": "Provider Configuration",
     "providerKey": "Provider Name (provider_key)",
     "providerKeyRequired": "Provider name is required",

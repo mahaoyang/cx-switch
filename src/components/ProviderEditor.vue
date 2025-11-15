@@ -97,6 +97,38 @@
               {{ t('providerEditor.disableResponseStorage') }}
             </Switch>
           </div>
+
+          <div class="mb-6">
+            <label class="block text-sm text-gray-300 mb-2">{{ t('providerEditor.askForApproval') }}</label>
+            <Select v-model="localProvider.askForApproval" @update:modelValue="emitChange">
+              <option value="">{{ t('providerEditor.notSet') }}</option>
+              <option value="never">never</option>
+              <option value="always">always</option>
+              <option value="auto">auto</option>
+            </Select>
+            <small class="text-gray-500 text-xs mt-1 block">{{ t('providerEditor.askForApprovalHint') }}</small>
+          </div>
+
+          <div class="mb-6">
+            <label class="block text-sm text-gray-300 mb-2">{{ t('providerEditor.sandbox') }}</label>
+            <Select v-model="localProvider.sandbox" @update:modelValue="emitChange">
+              <option value="">{{ t('providerEditor.notSet') }}</option>
+              <option value="workspace-write">workspace-write</option>
+              <option value="workspace-read">workspace-read</option>
+              <option value="none">none</option>
+            </Select>
+            <small class="text-gray-500 text-xs mt-1 block">{{ t('providerEditor.sandboxHint') }}</small>
+          </div>
+
+          <div class="mb-6">
+            <label class="block text-sm text-gray-300 mb-2">{{ t('providerEditor.skipGitRepoCheck') }}</label>
+            <Select v-model="localProvider.skipGitRepoCheck" @update:modelValue="emitChange">
+              <option value="">{{ t('providerEditor.notSet') }}</option>
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </Select>
+            <small class="text-gray-500 text-xs mt-1 block">{{ t('providerEditor.skipGitRepoCheckHint') }}</small>
+          </div>
         </section>
 
         <!-- 自定义提供商配置 -->
@@ -266,7 +298,10 @@ const props = defineProps({
       providerKey: '',
       wireApi: 'responses',
       requiresOpenAIAuth: true,
-      customFields: {}
+      customFields: {},
+      askForApproval: '',
+      sandbox: '',
+      skipGitRepoCheck: ''
     })
   },
   globalConfig: {

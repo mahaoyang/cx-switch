@@ -75,6 +75,13 @@
       "high": "high"
     },
     "disableResponseStorage": "禁用响应存储 (disable_response_storage)",
+    "notSet": "不设置（留空表示配置中不添加此项）",
+    "askForApproval": "执行前询问 (ask_for_approval)",
+    "askForApprovalHint": "控制执行操作前何时询问用户批准",
+    "sandbox": "沙盒模式 (sandbox)",
+    "sandboxHint": "控制文件系统访问权限",
+    "skipGitRepoCheck": "跳过 Git 仓库检查 (skip_git_repo_check)",
+    "skipGitRepoCheckHint": "是否跳过检查目录是否为 Git 仓库",
     "providerConfig": "提供商配置",
     "providerKey": "提供商名称 (provider_key)",
     "providerKeyRequired": "请输入提供商标识（provider_key）",

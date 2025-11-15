@@ -6,6 +6,18 @@ export function generateCodexToml(provider = {}, globalConfig = {}) {
 
   let toml = ''
 
+  // 全局设置（可选）
+  if (provider.askForApproval) toml += `ask_for_approval = "${provider.askForApproval}"\n`
+  if (provider.sandbox) toml += `sandbox = "${provider.sandbox}"\n`
+  if (provider.skipGitRepoCheck !== undefined && provider.skipGitRepoCheck !== null && provider.skipGitRepoCheck !== '') {
+    toml += `skip_git_repo_check = ${provider.skipGitRepoCheck}\n`
+  }
+
+  // 如果有全局设置，添加一个空行
+  if (provider.askForApproval || provider.sandbox || (provider.skipGitRepoCheck !== undefined && provider.skipGitRepoCheck !== null && provider.skipGitRepoCheck !== '')) {
+    toml += '\n'
+  }
+
   // 基础配置
   if (provider.model) toml += `model = "${provider.model}"\n`
   if (provider.modelReasoningEffort) {

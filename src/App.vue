@@ -369,7 +369,10 @@ const formData = ref({
     providerKey: '',
     wireApi: 'responses',
     requiresOpenAIAuth: true,
-    customFields: {}
+    customFields: {},
+    askForApproval: '',
+    sandbox: '',
+    skipGitRepoCheck: ''
   }
 })
 
@@ -514,7 +517,10 @@ function closeModal() {
       providerKey: '',
       wireApi: 'responses',
       requiresOpenAIAuth: true,
-      customFields: {}
+      customFields: {},
+      askForApproval: '',
+      sandbox: '',
+      skipGitRepoCheck: ''
     }
   }
 }
