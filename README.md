@@ -61,8 +61,8 @@ This will:
 2. Fill in your API details:
    - **API Base URL**: e.g., `https://api.openai.com/v1`
    - **API Key**: Your OpenAI API key (sk-...)
-   - **Model**: e.g., `gpt-4-turbo`, `claude-3-opus`
-   - **Reasoning Effort**: low, medium, or high (optional)
+   - **Model**: e.g., `gpt-5.1-codex-max`, `claude-3-opus`
+   - **Reasoning Effort**: low, medium, high, or xhigh (optional)
 3. Configure advanced options (optional):
    - Custom provider settings
    - Additional auth fields
@@ -113,8 +113,8 @@ Your configurations are stored in `~/.cx-switch/`:
 
 ### config.toml
 ```toml
-model = "gpt-4-turbo"
-model_reasoning_effort = "high"
+model = "gpt-5.1-codex-max"
+model_reasoning_effort = "xhigh"
 
 # Custom provider configuration
 model_provider = "azure"

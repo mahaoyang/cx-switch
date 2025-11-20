@@ -66,13 +66,14 @@
     },
     "basicConfig": "基础配置",
     "model": "模型 (model)",
-    "modelPlaceholder": "例如: gpt-5-codex, claude-3-opus",
+    "modelPlaceholder": "例如: gpt-5.1-codex-max, claude-3-opus",
     "reasoningEffort": "推理强度 (model_reasoning_effort)",
     "reasoningEffortOptions": {
       "notSet": "不设置",
       "low": "low",
       "medium": "medium",
-      "high": "high"
+      "high": "high",
+      "xhigh": "xhigh"
     },
     "disableResponseStorage": "禁用响应存储 (disable_response_storage)",
     "notSet": "不设置（留空表示配置中不添加此项）",

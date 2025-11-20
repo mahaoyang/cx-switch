@@ -361,8 +361,8 @@ const formData = ref({
   provider: {
     isCustom: true,
     auth: {},
-    model: 'gpt-5-codex',
-    modelReasoningEffort: 'high',
+    model: 'gpt-5.1-codex-max',
+    modelReasoningEffort: 'xhigh',
     disableResponseStorage: true,
     baseUrl: '',
     providerName: '',
@@ -509,8 +509,8 @@ function closeModal() {
     provider: {
       isCustom: true,
       auth: {},
-      model: 'gpt-5-codex',
-      modelReasoningEffort: 'high',
+      model: 'gpt-5.1-codex-max',
+      modelReasoningEffort: 'xhigh',
       disableResponseStorage: true,
       baseUrl: '',
       providerName: '',

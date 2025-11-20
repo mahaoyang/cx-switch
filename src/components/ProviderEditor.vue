@@ -54,6 +54,7 @@
             <option value="low">{{ t('providerEditor.reasoningEffortOptions.low') }}</option>
             <option value="medium">{{ t('providerEditor.reasoningEffortOptions.medium') }}</option>
             <option value="high">{{ t('providerEditor.reasoningEffortOptions.high') }}</option>
+            <option value="xhigh">{{ t('providerEditor.reasoningEffortOptions.xhigh') }}</option>
           </Select>
         </div>
       </div>
@@ -290,8 +291,8 @@ const props = defineProps({
     default: () => ({
       isCustom: true,
       auth: {},
-      model: 'gpt-5-codex',
-      modelReasoningEffort: 'high',
+      model: 'gpt-5.1-codex-max',
+      modelReasoningEffort: 'xhigh',
       disableResponseStorage: true,
       baseUrl: '',
       providerName: '',

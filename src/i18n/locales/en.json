@@ -66,13 +66,14 @@
     },
     "basicConfig": "Basic Configuration",
     "model": "Model (model)",
-    "modelPlaceholder": "e.g., gpt-5-codex, claude-3-opus",
+    "modelPlaceholder": "e.g., gpt-5.1-codex-max, claude-3-opus",
     "reasoningEffort": "Reasoning Effort (model_reasoning_effort)",
     "reasoningEffortOptions": {
       "notSet": "Not set",
       "low": "low",
       "medium": "medium",
-      "high": "high"
+      "high": "high",
+      "xhigh": "xhigh"
     },
     "disableResponseStorage": "Disable response storage (disable_response_storage)",
     "notSet": "Not set (leave empty to omit from config)",

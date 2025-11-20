@@ -18,7 +18,7 @@
 
 **基础设置**
 - **模型 (model)**：选择或输入模型名称，支持自动补全
-- **推理强度 (model_reasoning_effort)**：low、medium、high
+- **推理强度 (model_reasoning_effort)**：low、medium、high、xhigh
 - **禁用响应存储**：勾选框
 - **模型提供商 (model_provider)**：指定使用的提供商
 
